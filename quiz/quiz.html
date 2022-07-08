@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex">
+<title>Quiz sobre Fotografia</title>
+<meta name="description" content="">
+
+<!-- Latest compiled and minified JS -->
+<script src="jquery.js"></script>
+
+
+</head>
+<style>
+	.title{
+		background-color: blueviolet;
+		height: 50px;
+		width: 800px;
+		color: white;
+		text-align: center;
+	}
+	.cuerpo{
+		width: 1000px;
+		height: 200px;
+		background-color: rgba(7, 156, 67, 0.89);
+		color: white;
+		border: solid 1px red;
+		border-radius: 10px;
+	}
+
+	#pregunta{
+
+		font-family: cursive;
+		font-weight: bold;
+		font-size: 18px;
+	}
+	#respuestas{
+		font-family: cursive;
+		font-weight: bold;
+		font-size: 16px;
+		text-align: left;
+	}
+	.btn {
+      background: rgb(197, 62, 62);
+      width: 60%;
+      max-width: 550px;
+	  padding: 5px;
+      cursor: pointer;
+    }
+</style>
+<body>
+	<CENter>
+<h1 class="title">Quiz Fotografia</h1>
+
+		<div class="cuerpo">
+	<div id="pregunta">La acción se capta desde arriba, por encima de los personajes o de los objetos.</div><br>
+	<div id="respuestas">
+		<input type="radio" name="pp" value="0">
+		<label>Plano picado</label>
+		<br>
+		<input type="radio" name="pp" value="1">
+		<label>Plano general</label>
+		<br>
+		<input type="radio" name="pp" value="2">
+		<label>Plano contra picado</label>
+		<br>
+		<input type="radio" name="pp" value="3">
+		<label>Primer plano</label>
+		<br>
+	    </div>
+		<br>
+		<input class="btn" type="button" value="a ver si acerté" onclick="comprobar()">
+	  </div>
+
+</CENter>
+
+	<script>
+		var preguntas = [
+		"La acción se capta desde arriba, por encima de los personajes o de los objetos.",
+		"Cuando la cámara se encuentra en posición de picado extremo, dominando el escenario desde arriba es:",
+		"Cuando se presenta el entorno con mayor importancia, la figura humana logra distinguirse, pero no presenta notoriedad es:",
+		"Cuando cámara esta en encuadre desequilibrado, la cámara se inclina para transmitir una sensación de inquietud o creatividad es:",
+		"¿Qué tipo de plano utiliza la foto?",
+		];
+		var respuestas = [
+		["Plano picado", "Plano general", "Plano contra picado", "Primer plano"],
+		["Plano cenital", "Plano Americano", "Plano Inverso", "Plano picado"],
+		["Plano general", "Gran plano general", "Primerisimo primer plano", "Plano americano"],
+		["Plano aberrante", "Selfie", "Plano irlandés", "Daguerrotipo"]
+
+		];
+jugar();
+
+		var indicie_respuesta_correcta;
+
+function jugar(){
+			var indice_aleatorio = Math.floor(Math.random()*preguntas.length);
+
+
+		var respuestas_posibles = respuestas[indice_aleatorio];
+
+
+		var posiciones = [0,1,2,3];
+		var respuestas_reordenadas = [];
+
+		var ya_se_metio = false;
+		for(i in respuestas_posibles){
+			var posicion_aleatoria = Math.floor(Math.random()*posiciones.length);
+			if(posicion_aleatoria==0 && ya_se_metio == false){
+				indicie_respuesta_correcta =i;
+				ya_se_metio = true;
+			}
+			respuestas_reordenadas[i] = respuestas_posibles[posiciones[posicion_aleatoria]];
+			posiciones.splice(posicion_aleatoria, 1);
+		}
+
+		var txt_respuestas="";
+		for(i in respuestas_reordenadas){
+			txt_respuestas += '<input type="radio" name="pp" value="'+i+'"><label>'+respuestas_reordenadas[i]+'</label><br>';
+		}
+
+		document.getElementById("respuestas").innerHTML = txt_respuestas;
+		document.getElementById("pregunta").innerHTML = preguntas[indice_aleatorio];
+
+}
+function comprobar(){
+	var respuesta = $("input[type=radio]:checked").val();
+
+	//alert(respuesta);
+	//alert(indicie_respuesta_correcta);
+	if(respuesta ==indicie_respuesta_correcta){
+		alert("RESPUESTA CORRECTA!");
+	}else{
+		alert("RESPUESTA INCORRECTA");
+	}
+	jugar();
+}
+	</script>
+
+
+</body></html>
